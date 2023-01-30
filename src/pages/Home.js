@@ -30,7 +30,7 @@ let db = [
     
     ]
 function Home() {
-    console.log(db)
+  
 
   return (<>
   <CardContainer people={db}/>
