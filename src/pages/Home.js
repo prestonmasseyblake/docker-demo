@@ -124,7 +124,7 @@ function Home() {
         console.log("checking")
         setTimeout(function(){
             checkMatch();
-          }, 1000);
+          }, 2000);
         
     }
     
