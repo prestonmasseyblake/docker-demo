@@ -1,0 +1,7 @@
+.matched-card {
+    background-color: green;
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+    cursor: pointer;
+  }

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import CardContainer from '../components/CardContainer'
+import HeaderContainer from '../components/HeaderContainer'
 
 let db = [
     {
@@ -30,10 +31,111 @@ let db = [
     
     ]
 function Home() {
+    const [stateCards,setStateCards] = useState();
+  const [score, setScore] = useState(0);
+  const [tries, setTries] = useState(0);
+  const [matches, setMatches] = useState([]);
+  const [oneClick,setOneClick] = useState(undefined);
+  const [twoClick, setTwoClick] = useState(undefined);
+  const [data, setData] = useState(false);
+
+    function checkMatch(){
+        if(oneClick[0] == twoClick[0]){
+            console.log("its a match")
+            let temp_arr = []
+            temp_arr.push(...matches)
+            temp_arr.push(oneClick)
+            temp_arr.push(twoClick)
+            setMatches(temp_arr)
+            let temp_score = score
+            temp_score++
+            setScore(temp_score)
+            setOneClick(undefined)
+            setTwoClick(undefined)
+        }
+        else if(oneClick[0] != twoClick[0]){
+            console.log("not a match")
+            setOneClick(undefined)
+            setTwoClick(undefined)
+            let temp_tries = tries 
+            temp_tries++
+            setTries(temp_tries)
+            
+        }
+        // setData(false);
+
+    }
+
+  function clickedCard(id) {
+    console.log("this is the id passed in",id)
+    console.log("one Click is:",oneClick,"two Click is:",twoClick)
+    if(oneClick == undefined && twoClick == undefined){
+        console.log("first click triggered")
+        setOneClick(id)
+        console.log("one Click is:",oneClick,"two Click is:",twoClick)
+        
+       
+    }
+    else if(oneClick != undefined && twoClick == undefined){
+        console.log("second click triggered")
+        setTwoClick(id)
+        console.log("one Click is:",oneClick,"two Click is:",twoClick)
+        if(twoClick) { 
+            console.log("this is two click",twoClick)
+            checkMatch() }
+        // checkMatch()
+       
+        
+    }
+
+  }
+  function renderCards(){
+    // console.log("rendering cards")
+    let cards = [];
+    // console.log(people)
+    for(let i = 0; i < db.length; i++){
+
+      let temp_card = {
+        id: db[i].id.toString() + "a",
+        info: db[i].author
+      }
+      let another_temp_card = {
+        id: db[i].id.toString() + "b",
+        info: db[i].description
+      }
+      // console.log("this is temp_card",temp_card)
+      cards.push(temp_card)
+      cards.push(another_temp_card)
+    }
+    cards = cards.sort((a, b) => 0.5 - Math.random());
+    // console.log("cards in the function",cards)
+    setStateCards(cards);
+    
+  }
+  
+  useEffect(() => {
+    if(!data){
+        renderCards();
+        setData(true);
+    }
+    
+
+    if(twoClick != undefined){
+        console.log("checking")
+        setTimeout(function(){
+            checkMatch();
+          }, 1000);
+        
+    }
+    
+  },[twoClick]);
+
   
 
+
   return (<>
-  <CardContainer people={db}/>
+  <HeaderContainer score={score} tries={tries}/>
+  <CardContainer matches={matches} stateCards={stateCards} oneClick={oneClick} twoClick={twoClick} clickedCard={clickedCard} people={db}/>
    
   </>
   )
