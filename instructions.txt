@@ -1,0 +1,5 @@
+//commands to build and run the docker container 
+
+docker build . -t dockerized-react
+
+docker run -p 3000:3000 -d dockerized-react
