@@ -67,21 +67,21 @@ function Home() {
     }
 
   function clickedCard(id) {
-    console.log("this is the id passed in",id)
-    console.log("one Click is:",oneClick,"two Click is:",twoClick)
+    // console.log("this is the id passed in",id)
+    // console.log("one Click is:",oneClick,"two Click is:",twoClick)
     if(oneClick == undefined && twoClick == undefined){
-        console.log("first click triggered")
+        // console.log("first click triggered")
         setOneClick(id)
-        console.log("one Click is:",oneClick,"two Click is:",twoClick)
+        // console.log("one Click is:",oneClick,"two Click is:",twoClick)
         
        
     }
     else if(oneClick != undefined && twoClick == undefined){
-        console.log("second click triggered")
+        // console.log("second click triggered")
         setTwoClick(id)
-        console.log("one Click is:",oneClick,"two Click is:",twoClick)
+        // console.log("one Click is:",oneClick,"two Click is:",twoClick)
         if(twoClick) { 
-            console.log("this is two click",twoClick)
+            // console.log("this is two click",twoClick)
             checkMatch() }
         // checkMatch()
        
@@ -121,7 +121,7 @@ function Home() {
     
 
     if(twoClick != undefined){
-        console.log("checking")
+        // console.log("checking")
         setTimeout(function(){
             checkMatch();
           }, 2000);
