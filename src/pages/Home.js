@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import CardContainer from '../components/CardContainer'
 import HeaderContainer from '../components/HeaderContainer'
+import Success from '../components/Success';
 
 let db = [
     {
@@ -18,26 +19,39 @@ let db = [
     author: "Alex Ashley",
     description: "I joined Liatrio in October 2020. My background is a potpourri of roles in software development: web applications with Node.js & React, back of house desktop applications built with Visual Basic/C#, mobile apps using React Native, and, more recently, cloud infrastructure and automation."
     },
-    {
-    id: 4,
-    author: "Alex Detesan",
-    description: "I joined Liatrio in December 2021, after moving from the UK to Canada. I live in Toronto, but tend to travel all over the place and work from anywhere. I love DevOps, cloud, security, automation... and everything else we do. My background is in software engineering, but DevOps is a more natural fit. I'm currently deployed at SWA.In my spare time I do a lot of stuff outside and you might catch me on a call talking about my macros (and should probably tell me to shut up...)."
-    },
-    {
-    id: 5,
-    author: "Alex Nelson",
-    description: "Hey everyone! 👋 I started with Liatrio way back in March of 2017 as one of the original 9 interns working out of the old chicostart office, and it has been such a cool experience to see Liatrio grow into what it is today and to grow alongside it! I've got a degree in Computer Science from Chico State but my nerdom started long before then. From building computers and hosting game servers as a teenager, to writing minecraft mods and building ripple carry adders in high school to working IT for 4 years prior to Liatrio; my whole life I've had a passion for technology and automation."
-    },
+    // {
+    // id: 4,
+    // author: "Alex Detesan",
+    // description: "I joined Liatrio in December 2021, after moving from the UK to Canada. I live in Toronto, but tend to travel all over the place and work from anywhere. I love DevOps, cloud, security, automation... and everything else we do. My background is in software engineering, but DevOps is a more natural fit. I'm currently deployed at SWA.In my spare time I do a lot of stuff outside and you might catch me on a call talking about my macros (and should probably tell me to shut up...)."
+    // },
+    // {
+    // id: 5,
+    // author: "Alex Nelson",
+    // description: "Hey everyone! 👋 I started with Liatrio way back in March of 2017 as one of the original 9 interns working out of the old chicostart office, and it has been such a cool experience to see Liatrio grow into what it is today and to grow alongside it! I've got a degree in Computer Science from Chico State but my nerdom started long before then. From building computers and hosting game servers as a teenager, to writing minecraft mods and building ripple carry adders in high school to working IT for 4 years prior to Liatrio; my whole life I've had a passion for technology and automation."
+    // },
     
     ]
-function Home() {
-    const [stateCards,setStateCards] = useState();
+function Home({mode, toggleMode}) {
+  const [stateCards,setStateCards] = useState();
   const [score, setScore] = useState(0);
   const [tries, setTries] = useState(0);
   const [matches, setMatches] = useState([]);
   const [oneClick,setOneClick] = useState(undefined);
   const [twoClick, setTwoClick] = useState(undefined);
   const [data, setData] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  
+  // const [mode, setMode] = useState(false);
+
+    function checkSuccess(){
+      console.log("checking success")
+      console.log(matches.length," ",db.length)
+      if(matches.length >= db.length)
+      {
+      console.log("it should toggle")
+        setShowSuccess(true);
+      }
+    }
 
     function checkMatch(){
         if(oneClick[0] == twoClick[0]){
@@ -63,8 +77,11 @@ function Home() {
             
         }
         // setData(false);
+        checkSuccess()
 
     }
+
+  
 
   function clickedCard(id) {
     // console.log("this is the id passed in",id)
@@ -118,25 +135,21 @@ function Home() {
         renderCards();
         setData(true);
     }
-    
-
     if(twoClick != undefined){
         // console.log("checking")
         setTimeout(function(){
             checkMatch();
-          }, 2000);
-        
+          }, 2000);   
     }
-    
-  },[twoClick]);
+  },[twoClick,showSuccess]);
 
   
 
 
   return (<>
-  <HeaderContainer score={score} tries={tries}/>
-  <CardContainer matches={matches} stateCards={stateCards} oneClick={oneClick} twoClick={twoClick} clickedCard={clickedCard} people={db}/>
-   
+  <HeaderContainer toggleMode={toggleMode}  mode={mode} score={score} tries={tries}/>
+  <CardContainer mode={mode} matches={matches} stateCards={stateCards} oneClick={oneClick} twoClick={twoClick} clickedCard={clickedCard} people={db}/>
+   { showSuccess ? <Success/> : <></> }
   </>
   )
 }
