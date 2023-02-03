@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/docker-demo/static/css/main.ac2ad5d4.css",
+    "main.js": "/docker-demo/static/js/main.058f63c7.js",
+    "static/js/787.dc8b139d.chunk.js": "/docker-demo/static/js/787.dc8b139d.chunk.js",
+    "static/media/logo.svg": "/docker-demo/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/docker-demo/index.html",
+    "main.ac2ad5d4.css.map": "/docker-demo/static/css/main.ac2ad5d4.css.map",
+    "main.058f63c7.js.map": "/docker-demo/static/js/main.058f63c7.js.map",
+    "787.dc8b139d.chunk.js.map": "/docker-demo/static/js/787.dc8b139d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ac2ad5d4.css",
+    "static/js/main.058f63c7.js"
+  ]
+}
